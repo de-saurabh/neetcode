@@ -12,7 +12,7 @@ function containsDuplicate(nums: number[]): boolean {
 function isAnagram(s: string, t: string): boolean {
     const charS = s.split('').sort().join();
     const charT = t.split('').sort().join();
-    return !!charS.localeCompare(charT);
+    return charT === charS;
 }
 // console.log(isAnagram('anagram', 'anagrma'));
 
@@ -45,3 +45,40 @@ function topKFrequent(nums: number[], k: number): number[] {
     const frequentNumbers = Object.fromEntries(frequencyMap);
     return [];
 }
+
+// -------------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/group-anagrams/description/
+// optimized
+function groupAnagrams(strs: string[]): string[][] {
+    const anagramMap: Map<string, string[]> = new Map();
+    strs.forEach(str => {
+        const charStr = str.split('').sort().join();
+        if (!anagramMap.has(charStr)) anagramMap.set(charStr, []);
+        anagramMap.get(charStr)?.push(str);
+    })
+    return Array.from(anagramMap.values());
+}
+
+// brute force
+// function groupAnagrams(strs: string[]): string[][] {
+//     const result: string[][] = [];
+//     for (let indexOne = 0; indexOne < strs.length; indexOne++) {
+//         const tempResult: string[] = [];
+//         if (!result.flat().includes(strs[indexOne])) tempResult.push(strs[indexOne]);
+//         for (let indexTwo = indexOne + 1; indexTwo < strs.length; indexTwo++) {
+//             const isTwoAnagram = isAnagram(strs[indexOne], strs[indexTwo]);
+//             if (isTwoAnagram && indexOne !== indexTwo && !result.flat().includes(strs[indexTwo])) tempResult.push(strs[indexTwo]);
+//         }
+//         if (tempResult.length) result.push(tempResult);
+//     }
+//     return result;
+// }
+//
+// function isAnagram(s: string, t: string): boolean {
+//     const charS = s.split('').sort().join();
+//     const charT = t.split('').sort().join();
+//     return charT === charS;
+// }
+
+// console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
