@@ -32,20 +32,6 @@ function twoSum(nums: number[], target: number): number[] {
 }
 // console.log(twoSum([2, 7, 11, 15], 9))
 
-// --------------------------------------------------------------------------------------------------- //
-
-// https://leetcode.com/problems/top-k-frequent-elements/
-function topKFrequent(nums: number[], k: number): number[] {
-    const frequencyMap: Map<number, number> = new Map();
-    nums.forEach(num => {
-        const existingNum = frequencyMap.get(num);
-        if (!existingNum) frequencyMap.set(num, 1);
-        else frequencyMap.set(num, existingNum + 1);
-    })
-    const frequentNumbers = Object.fromEntries(frequencyMap);
-    return [];
-}
-
 // -------------------------------------------------------------------------------------------------------- //
 
 // https://leetcode.com/problems/group-anagrams/description/
@@ -82,3 +68,18 @@ function groupAnagrams(strs: string[]): string[][] {
 // }
 
 // console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/top-k-frequent-elements/
+function topKFrequent(nums: number[], k: number): number[] {
+    const frequencyMap: Map<number, number> = new Map();
+    nums.forEach(num => {
+        const existingNum = frequencyMap.get(num);
+        if (!existingNum) frequencyMap.set(num, 1);
+        else frequencyMap.set(num, existingNum + 1);
+    })
+    return Array.from(frequencyMap).sort((a, b) => b[1] - a[1]).slice(0, k).map(([i]) => i);
+}
+
+console.log(topKFrequent([1,1,1,2,2,3], 2))
