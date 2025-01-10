@@ -11,6 +11,10 @@
   "description": "",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.8",
+    "prettier": "3.4.2",
     "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "eslint-config-airbnb": "^19.0.4"
   }
 }
