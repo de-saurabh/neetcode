@@ -216,24 +216,3 @@ function longestConsecutive(nums: number[]): number {
   for (let num = 0; num < nums.length; num++) {}
   return result;
 }
-
-// --------------------------------------------------------------------------------------------------- //
-
-// https://leetcode.com/problems/valid-parentheses/description/
-
-function isValid(s: string): boolean {
-  const stack: string[] = [];
-  const bracesMap: Map<string, string> = new Map();
-  bracesMap.set(")", "(");
-  bracesMap.set("}", "{");
-  bracesMap.set("]", "[");
-  for (let n = 0; n < s.length; n++) {
-    const top = stack[stack.length - 1];
-    const oppBrace = bracesMap.get(s[n]);
-    if (oppBrace && oppBrace === top) stack.pop();
-    else stack.push(s[n]);
-  }
-  return stack.length === 0;
-}
-
-console.log(isValid("(}"));
