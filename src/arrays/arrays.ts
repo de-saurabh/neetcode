@@ -172,17 +172,68 @@ function isValidSudoku(board: string[][]): boolean {
 
   return true;
 }
+//
+// console.log(
+//   isValidSudoku([
+//     ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+//     ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+//     [".", "9", "8", ".", ".", ".", ".", "6", "."],
+//     ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+//     ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+//     ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+//     [".", "6", ".", ".", ".", ".", "2", "8", "."],
+//     [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+//     [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+//   ]),
+// );
 
-console.log(
-  isValidSudoku([
-    ["5", "3", ".", ".", "7", ".", ".", ".", "."],
-    ["6", ".", ".", "1", "9", "5", ".", ".", "."],
-    [".", "9", "8", ".", ".", ".", ".", "6", "."],
-    ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
-    ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
-    ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
-    [".", "6", ".", ".", ".", ".", "2", "8", "."],
-    [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-    [".", ".", ".", ".", "8", ".", ".", "7", "9"],
-  ]),
-);
+// --------------------------------------------------------------------------------------------------- //
+
+function longestCommonPrefix(strs: string[]): string {
+  const maxPossibleString = Math.min(...strs.map((str) => str.length));
+  let result = "";
+  for (let char = 0; char <= maxPossibleString - 1; char++) {
+    let lastChar = result[char];
+    for (let str = 0; str < strs.length; str++) {
+      const currentChar = strs[str][char];
+      if (!lastChar) {
+        result += currentChar;
+        lastChar = currentChar;
+      } else if (lastChar !== currentChar) break;
+    }
+  }
+  return result;
+}
+
+// console.log(longestCommonPrefix(["flower", "flow", "flight"]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/longest-consecutive-sequence/
+
+function longestConsecutive(nums: number[]): number {
+  let result = 0;
+  for (let num = 0; num < nums.length; num++) {}
+  return result;
+}
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/valid-parentheses/description/
+
+function isValid(s: string): boolean {
+  const stack: string[] = [];
+  const bracesMap: Map<string, string> = new Map();
+  bracesMap.set(")", "(");
+  bracesMap.set("}", "{");
+  bracesMap.set("]", "[");
+  for (let n = 0; n < s.length; n++) {
+    const top = stack[stack.length - 1];
+    const oppBrace = bracesMap.get(s[n]);
+    if (oppBrace && oppBrace === top) stack.pop();
+    else stack.push(s[n]);
+  }
+  return stack.length === 0;
+}
+
+console.log(isValid("(}"));
