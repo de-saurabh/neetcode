@@ -44,20 +44,57 @@ function evalRPN(tokens: string[]): number {
   return Number(stack[stack.length - 1]);
 }
 
-console.log(
-  evalRPN([
-    "10",
-    "6",
-    "9",
-    "3",
-    "+",
-    "-11",
-    "*",
-    "/",
-    "*",
-    "17",
-    "+",
-    "5",
-    "+",
-  ]),
-);
+// console.log(
+//   evalRPN([
+//     "10",
+//     "6",
+//     "9",
+//     "3",
+//     "+",
+//     "-11",
+//     "*",
+//     "/",
+//     "*",
+//     "17",
+//     "+",
+//     "5",
+//     "+",
+//   ]),
+// );
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/daily-temperatures/description/
+
+function dailyTemperatures(temperatures: number[]): number[] {
+  const nextHigherTemps: number[] = new Array(temperatures.length).fill(0);
+  for (let [index, value] of temperatures.entries()) {
+    let nextIndex = index + 1;
+    while (nextIndex <= temperatures.length - 1) {
+      if (temperatures[nextIndex] > temperatures[index]) {
+        nextHigherTemps[index] = nextIndex - index;
+        break;
+      } else nextIndex++;
+    }
+  }
+  return nextHigherTemps;
+}
+
+// console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/3sum/description/
+
+function threeSum(nums: number[]): number[][] {
+  nums = nums.sort((a, b) => a - b);
+  const result: number[][] = [];
+  for (const [indexOne, numOne] of nums.entries()) {
+    const firstNumber = numOne;
+    for (let [indexTwo, numTwo] of nums.entries()) {
+    }
+  }
+  return result;
+}
+
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));

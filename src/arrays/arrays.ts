@@ -216,3 +216,177 @@ function longestConsecutive(nums: number[]): number {
   for (let num = 0; num < nums.length; num++) {}
   return result;
 }
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/plus-one/
+
+function plusOne(digits: number[]): number[] {
+  return (Number(digits.map((i) => i.toString()).join("")) + 1)
+    .toString()
+    .split("")
+    .map((i) => Number(i));
+}
+// console.log(plusOne([1, 2, 3]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/find-greatest-common-divisor-of-array/
+
+function findGCD(nums: number[]): number {
+  let [min, max] = nums.sort((a, b) => a - b);
+  nums.forEach((num) => {
+    if (num < min) min = num;
+    else max = num;
+  });
+  let gcp = 1;
+  let temp = min;
+  while (temp) {
+    if (min % temp === 0 && max % temp === 0) {
+      return temp;
+    }
+    temp--;
+  }
+  return gcp;
+}
+
+// console.log(findGCD([7, 5, 6, 8, 3, 15]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/description/
+
+function check(nums: number[]): boolean {
+  let count: number = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > nums[(i + 1) % nums.length]) count++;
+  }
+  return count <= 1;
+}
+
+// console.log(check([2, 1, 3, 4]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+
+function removeDuplicates(nums: number[]): number {
+  let lastVisitedIndex = 0;
+  const visitedValues = new Set();
+  for (let i = 0; i < nums.length; i++) {
+    if (visitedValues.has(nums[i])) continue;
+    else {
+      visitedValues.add(nums[i]);
+      nums[lastVisitedIndex] = nums[i];
+      ++lastVisitedIndex;
+    }
+  }
+  return visitedValues.size;
+}
+
+// console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/rotate-array/description/
+
+/**
+ Do not return anything, modify nums in-place instead.
+ */
+function rotate(nums: number[], k: number): number[] {
+  let temp = nums[0];
+  for (let i = 0; i < k - 1; i++) {
+    nums[i] = nums[i + 1];
+  }
+  nums[k - 1] = temp;
+  return nums;
+}
+
+// console.log(rotate([-1, -100, 3, 99], 2));
+// console.log(rotate([1, 2, 3, 4, 5, 6, 7], 3));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/move-zeroes/description/
+
+function moveZeroes(nums: number[]): number[] {
+  let lastNonZeroIndex = 0;
+  for (let i = 0; i < nums.length; i++) {
+    const current = nums[i];
+    if (current !== 0) {
+      nums[lastNonZeroIndex] = current;
+      lastNonZeroIndex = i;
+    }
+  }
+  return nums;
+}
+
+// console.log(moveZeroes([0, 1, 0, 3, 12]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/sort-an-array/
+
+// selection sort
+
+function selectionSortArray(nums: number[]): number[] {
+  for (let i = 0; i <= nums.length - 2; i++) {
+    let min = i;
+    for (let j = i; j <= nums.length - 1; j++) {
+      if (nums[j] < nums[min]) {
+        min = j;
+      }
+    }
+    const temp = nums[min];
+    nums[min] = nums[i];
+    nums[i] = temp;
+  }
+  return nums;
+}
+
+// bubble sort
+
+function bubbleSortArray(nums: number[]): number[] {
+  for (let i = nums.length - 1; i >= 1; i--) {
+    for (let j = 0; j < nums.length - 1; j++) {
+      if (nums[j] > nums[j + 1]) {
+        const temp = nums[j];
+        nums[j] = nums[j + 1];
+        nums[j + 1] = temp;
+      }
+    }
+  }
+  return nums;
+}
+
+// insertion sort
+
+function sortArray(nums: number[]): number[] {
+  for (let i = 0; i <= nums.length - 1; i++) {
+    let j = i;
+    while (j > 0 && nums[j - 1] > nums[j]) {
+      const temp = nums[j];
+      nums[j] = nums[j - 1];
+      nums[j - 1] = temp;
+      j--;
+    }
+  }
+  return nums;
+}
+
+console.log(sortArray([5, 2, 3, 1]));
+
+// --------------------------------------------------------------------------------------------------- //
+
+// https://leetcode.com/problems/largest-odd-number-in-string/
+
+function largestOddNumber(num: string): string {
+  const nums = num.split("").map((i) => Number(i));
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] % 2 === 0) nums.pop();
+    else break;
+  }
+  return nums.map((i) => i.toString()).join("");
+}
+
+// console.log(largestOddNumber("3452456457456666666666666666666666676666666666"));
